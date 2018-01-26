@@ -1,0 +1,15 @@
+spring:
+#  http:
+#    encoding:
+#      charset: UTF-8
+#      enabled: true
+#      force: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/little_test?useUnicode=true&characterEncoding=UTF8&autoReconnect=true
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
