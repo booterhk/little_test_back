@@ -1,5 +1,6 @@
 package com.hk.service;
 
+import com.hk.Exception.UserException;
 import com.hk.dao.User;
 import com.hk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,16 @@ public class UserService {
         User user2 = new User();
         user2.setUserName("hk1");
         userRepository.save(user2);
+    }
+
+    public User getAge(Integer id) throws Exception{
+        User user = userRepository.findOne(id);
+        Integer age = user.getAge();
+        if (age < 10) {
+            throw new UserException(501, "年龄太小");
+        } else if (age <16) {
+            throw new UserException(500, "还是太小");
+        }
+        return user;
     }
 }

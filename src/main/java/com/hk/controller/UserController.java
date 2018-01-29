@@ -4,6 +4,7 @@ import com.hk.dao.Result;
 import com.hk.dao.User;
 import com.hk.repository.UserRepository;
 import com.hk.service.UserService;
+import com.hk.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -34,25 +35,23 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    //根据年龄查找用户
+    @GetMapping(value = "/getUserByAge/{id}")
+    public User getUserByAge (@PathVariable Integer id) throws Exception{
+        return userService.getAge(id);
+    }
+
     // 新增用户
     @PostMapping(value = "/addUser")
     public Result<User> addUser(@Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            Result result = new Result();
-            result.setStatusCode(500);
-            result.setMessage("创建失败");
-            result.setData(bindingResult.getFieldError().getDefaultMessage());
-            return result;
+            return ResultUtils.error(bindingResult.getFieldError().getDefaultMessage(), 500);
         }
         user.setUserName(user.getUserName());
         user.setPassword(user.getPassword());
         user.setAge(user.getAge());
 
-        Result result = new Result();
-        result.setStatusCode(200);
-        result.setMessage("创建成功");
-        result.setData(userRepository.save(user));
-        return result;
+        return ResultUtils.success(userRepository.save(user), "创建用户成功");
     }
 
     //同时新增两个用户
