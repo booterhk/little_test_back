@@ -2,11 +2,8 @@ package com.hk.dao;
 
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 /**
@@ -17,6 +14,7 @@ import javax.validation.constraints.Min;
  * 3.右键可快速set,get
  */
 @Entity
+@Table(name = "user")
 public class User {
     //主键 ID
     @Id
